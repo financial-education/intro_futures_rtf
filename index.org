@@ -1,0 +1,163 @@
+#+title: An Introduction to Futures
+#+author: Matt Brigida, Ph.D.
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+
+* Futures and Forwards
+
+Futures and forwards are used by firms in the same way in order to manage risk.  Futures and forwards simply differ in the manner in which they are traded, and the standardization of the contract.
+
+- In this presentation we'll refer to *futures*, but much of the content can be generalized to forwards also.
+
+* Who Trades Futures?
+
+Broadly speaking, there are two types of traders in futures markets, hedgers and speculators.
+
+-  Hedgers: Companies who use futures to manage risk.  They generally buy futures contract on product they consume, and sell contracts on products they produce.
+
+-  Speculators: Individuals and firms who trade futures contracts based on expectations of future prices.  This is risk taking behavior.
+
+Types of traders and their aggregate positions are summarized in the [CFTC Commitment of Traders Report](http://www.cftc.gov/Marketreports/CommitmentsofTraders/index.htm).
+
+You can automatically import this data for analysis using:
+
+#+begin_src R :exports both :cache yes :colnames yes
+library(readr)
+data <- read_csv("https://www.cftc.gov/dea/newcot/c_disagg.txt", col_names = FALSE)
+print(dim(data))
+## just show first two rows, and first 5 columns
+data[1:2, 1:5]
+#+end_src
+
+#+RESULTS[3dfd672736cd8c6aec1f55790fd924b9b203a51e]:
+| X1                                                 |     X2 |         X3 | X4     | X5  |
+|----------------------------------------------------+--------+------------+--------+-----|
+| WHEAT-SRW - CHICAGO BOARD OF TRADE                 | 200407 | 2020-04-07 | 1602   | CBT |
+| BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE | 200407 | 2020-04-07 | 00160F | CBT |
+
+Although we have to add the data headings, which it looks like [[https://www.cftc.gov/MarketReports/CommitmentsofTraders/AbouttheCOTReports/index.htm][we can get here.]]
+
+** Quandl
+
+We can also pull this data via Quandl:
+*** TRANSCO ZONE 6 MONTHLY INDEX (IFED) - Futures and Options - Number of Traders
+
+#+begin_src R :exports both :cache yes :session r :eval yes :colnames yes
+library(Quandl)
+api_key <- read.table("~/quandl_api_key")
+api_key <- as.character(api_key$V1)
+Quandl.api_key(api_key)
+
+cot <- Quandl("CFTC/0233CV_FO_L_ALL_NT")
+head(cot)
+#+end_src
+
+#+RESULTS[49aad899ad97d4759858802eb747470943b2662e]:
+|       Date | Total Traders | Non Commercial Longs | Non Commercial Shorts | Non Commercial Spreads | Commercial Longs | Commercial Shorts | Total Reportable Longs | Total Reportable Shorts |
+|------------+---------------+----------------------+-----------------------+------------------------+------------------+-------------------+------------------------+-------------------------|
+| 2020-03-31 |            21 |                    1 |                     0 |                      0 |               11 |                12 |                     12 |                      12 |
+| 2020-03-24 |            20 |                    1 |                     0 |                      0 |               10 |                12 |                     11 |                      12 |
+| 2020-03-03 |            21 |                    2 |                     0 |                      0 |               10 |                10 |                     12 |                      10 |
+| 2020-02-25 |            21 |                    2 |                     0 |                      0 |               10 |                11 |                     12 |                      11 |
+| 2020-02-04 |            20 |                    2 |                     1 |                      1 |                9 |                11 |                     11 |                      13 |
+| 2020-01-28 |            20 |                    2 |                     1 |                      1 |               10 |                11 |                     12 |                      13 |
+
+
+* Hedgers
+
+Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  The prices of both gas and electricity freely fluctuate.
+
+- In this case your company would be more profitable if the difference between the gas and electricity prices rises, and less profitable if it falls.
+
+* The Role of Speculators
+
+Speculators play an important role by taking the other side of order imbalances between hedgers. Without speculators, hedgers would have to wait for other hedgers to trade (causing the market maker to widen bid-ask spreads).
+
+#+begin_quote
+Speculators temporarily hold the order imbalance between hedgers in exchange for a return.
+#+end_quote
+
+Futures markets exist to allow hedging, and not for speculation.  That said, without speculators the futures markets would be more likely to fail because transaction costs (bid-ask spread) would increase.  
+
+
+
+* Major Futures Markets
+
+- [[http://www.cmegroup.com/][CME Group]]: Comprises the Chicago Mercantile Exchange, Chicago Board of Trade, New York Mercantile Exchange, COMEX, and the CME Europe.
+- [[https://www.theice.com/index][Intercontinental Exchange]]
+- [[http://www.cboe.com/][Chicago Board Options Exchange]]
+
+* Futures Quotes
+
+[[https://www.cmegroup.com/trading/agricultural/grain-and-oilseed/soybean_contract_specifications.html][CME Soybeans Contract]]
+
+[[https://www.cmegroup.com/content/dam/cmegroup/rulebook/CBOT/II/11/11.pdf][Full Contract Specifications]]
+
+| Contract Size          | 5,000 bushels                                                                                            |
+| Price Quotation        | Cents per Bushel                                                                                         |
+| Minimum Tick           | 1/4 of one cent per bushel ($12.50)                                                                      |
+| Settlement             | Physical Delivery                                                                                        |
+| What can be delivered? | #2 Yellow at contract price, #1 Yellow at a 6 cent/bushel premium, #3 Yellow at a 6 cent/bushel discount |
+| Where is it delivered? | Try and find the answer in the Full Contract Specifications                                              |
+
+
+[[https://www.cmegroup.com/trading/energy/refined-products/heating-oil_contract_specifications.html?0.2512706227211732=][NYMEX Heating Oil Contract]]
+
+[[https://www.cmegroup.com/content/dam/cmegroup/rulebook/NYMEX/1a/150.pdf][Full Contract Specifications]]
+
+| Contract Size          | 42,000 gallons                                              |
+| Price Quotation        | Dollars and Cents                                           |
+| Minimum Tick           | One hundreth of a cent ($4.20)                              |
+| Settlement             | Physical Delivery                                           |
+| What can be delivered? | Try and find the answer in the Full Contract Specifications |
+| Where is it delivered? | Try and find the answer in the Full Contract Specifications |
+
+
+* Understanding Futures Prices
+
+All futures prices are affected by interest rates.  Beyond that, futures prices are driven by storage costs and convenience yields.
+
+[[https://www.eia.gov/naturalgas/storage/dashboard/][We can take a look at the EIA's Natural Gas Storage Dashboard to start to understand futures pricing.]]
+
+#+begin_export html
+<iframe src="https://www.eia.gov/naturalgas/storage/dashboard/" allowfullscreen="true" height=800px width="100%"></iframe>
+#+end_export
+
+
+
+* Futures Prices by Delivery
+
+
+
+
+* Open Interest
+
+For convenience sake, we are inexact when we use the term `buy` or `sell` a futures contract.  What we mean when we say `buy` (or `sell`) is we enter into contract today to buy (or sell) the underlying at some set point in the future, for the futures price.  So when we buy or sell we *create* a contract, and if we close a position we *remove* a contract.  The number of contracts that are in existence at any point is call *open interest*.
+
+#+begin_src R :exports both :cache yes :session r :colnames yes :rownames nil
+  ## Dubai crude oil traded on the Tokyo commodities exchange
+  dc <- Quandl("TOCOM/33X2018")
+  head(dc)
+#+end_src
+
+#+RESULTS[97e91bfdbad4651883d409b6b3d2c4b3d3279118]:
+|       Date |  Open |  High |   Low | Close | Settle | Volume | Open Interest |
+|------------+-------+-------+-------+-------+--------+--------+---------------|
+| 2018-11-30 | 46830 | 46830 | 46690 | 46700 |  46700 |      8 |          2471 |
+| 2018-11-29 | 47230 | 47230 | 46690 | 46690 |  46690 |     21 |          2476 |
+| 2018-11-28 | 46720 | 46970 | 46710 | 46790 |  46790 |     13 |          2483 |
+| 2018-11-27 | 46880 | 46890 | 46750 | 46750 |  46750 |     16 |          2485 |
+| 2018-11-26 | 47390 | 47390 | 46460 | 46730 |  46730 |     12 |          2489 |
+| 2018-11-22 | 47300 | 47350 | 47280 | 47350 |  47350 |     17 |          2492 |
+
+
+#+begin_src R :exports both :cache yes :session r :results output graphics :file oi.png
+  library(xts)
+  oi <- as.xts(dc$`Open Interest`, order.by = as.Date(dc$Date))
+  plot(oi, main = "Open Interest")
+#+end_src
+
+#+RESULTS[72f2c88151f9658815d598b182e4c15e67ee3b0e]:
+[[file:oi.png]]
+
+
