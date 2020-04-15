@@ -9,6 +9,15 @@ Futures and forwards are used by firms in the same way in order to manage risk. 
 
 - In this presentation we'll refer to *futures*, but much of the content can be generalized to forwards also.
 
+** Spot Prices
+
+The spot price is the price for immediate delivery of the underlying.  Usually, immediate means withing two days.
+
+#+begin_quote
+As the futures contract approaches expiration, the futures price approaches the spot price.
+#+end_quote
+
+
 * Who Trades Futures?
 
 Broadly speaking, there are two types of traders in futures markets, hedgers and speculators.
@@ -16,6 +25,40 @@ Broadly speaking, there are two types of traders in futures markets, hedgers and
 -  Hedgers: Companies who use futures to manage risk.  They generally buy futures contract on product they consume, and sell contracts on products they produce.
 
 -  Speculators: Individuals and firms who trade futures contracts based on expectations of future prices.  This is risk taking behavior.
+
+
+* Hedgers
+
+** Example: Natural Gas Futures
+
+*** Buy Natural Gas Futures
+
+Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  So you are naturall /short/ natural gas, and should /buy/ futures to hedge.  
+
+*** Sell Natural Gas Futures
+
+Say you are an upstream Oil and Gas E&P (Exploration and Production) firm.  You produce natural gas, and so are naturally /long/ the price.  To hedge you should /sell/ futures.
+
+** Example: Wheat Futures
+
+*** Buy Wheat Futures
+
+*** Sell Wheat Futures
+
+
+
+
+* The Role of Speculators
+
+Speculators play an important role by taking the other side of order imbalances between hedgers. Without speculators, hedgers would have to wait for other hedgers to trade (causing the market maker to widen bid-ask spreads).
+
+#+begin_quote
+Speculators temporarily hold the order imbalance between hedgers in exchange for a return.
+#+end_quote
+
+Futures markets exist to allow hedging, and not for speculation.  That said, without speculators the futures markets would be more likely to fail because transaction costs (bid-ask spread) would increase.  
+
+* CFTC COT Reports
 
 Types of traders and their aggregate positions are summarized in the [CFTC Commitment of Traders Report](http://www.cftc.gov/Marketreports/CommitmentsofTraders/index.htm).
 
@@ -62,23 +105,9 @@ head(cot)
 | 2020-02-04 |            20 |                    2 |                     1 |                      1 |                9 |                11 |                     11 |                      13 |
 | 2020-01-28 |            20 |                    2 |                     1 |                      1 |               10 |                11 |                     12 |                      13 |
 
+** CME COT Visualizations
 
-* Hedgers
-
-Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  The prices of both gas and electricity freely fluctuate.
-
-- In this case your company would be more profitable if the difference between the gas and electricity prices rises, and less profitable if it falls.
-
-* The Role of Speculators
-
-Speculators play an important role by taking the other side of order imbalances between hedgers. Without speculators, hedgers would have to wait for other hedgers to trade (causing the market maker to widen bid-ask spreads).
-
-#+begin_quote
-Speculators temporarily hold the order imbalance between hedgers in exchange for a return.
-#+end_quote
-
-Futures markets exist to allow hedging, and not for speculation.  That said, without speculators the futures markets would be more likely to fail because transaction costs (bid-ask spread) would increase.  
-
+[[https://www.cmegroup.com/tools-information/quikstrike/commitment-of-traders-agricultural.html][See this plot here.]]
 
 
 * Major Futures Markets
@@ -89,7 +118,7 @@ Futures markets exist to allow hedging, and not for speculation.  That said, wit
 
 * Futures Quotes
 
-[[https://www.cmegroup.com/trading/agricultural/grain-and-oilseed/soybean_contract_specifications.html][CME Soybeans Contract]]
+[[https://www.cmegroup.com/trading/agricultural/grain-and-oilseed/soybean_contract_specifications.html][CME Soybeans Contract (ZS)]]
 
 [[https://www.cmegroup.com/content/dam/cmegroup/rulebook/CBOT/II/11/11.pdf][Full Contract Specifications]]
 
@@ -101,7 +130,7 @@ Futures markets exist to allow hedging, and not for speculation.  That said, wit
 | Where is it delivered? | Try and find the answer in the Full Contract Specifications                                              |
 
 
-[[https://www.cmegroup.com/trading/energy/refined-products/heating-oil_contract_specifications.html?0.2512706227211732=][NYMEX Heating Oil Contract]]
+[[https://www.cmegroup.com/trading/energy/refined-products/heating-oil_contract_specifications.html?0.2512706227211732=][NYMEX Heating Oil Contract (HO)]]
 
 [[https://www.cmegroup.com/content/dam/cmegroup/rulebook/NYMEX/1a/150.pdf][Full Contract Specifications]]
 
@@ -111,6 +140,40 @@ Futures markets exist to allow hedging, and not for speculation.  That said, wit
 | Settlement             | Physical Delivery                                           |
 | What can be delivered? | Try and find the answer in the Full Contract Specifications |
 | Where is it delivered? | Try and find the answer in the Full Contract Specifications |
+
+* Profit and Loss on Futures
+
+The contract size will give you the profit/loss for a 1 cent movement in the price.  
+
+** Soybeans
+
+The soybeans (ZS) contract size is 5000 bushels. So for every cent change in the soybeans contract price, you make or lose $50 per contract.
+
+*** Example:
+
+Say earlier today you bought 3 July 2020 ZS contracts for 325 cents each.  At the close of today's trading July 2020 ZS traded at a price of 327 cents.
+
+Your profit per contract is:
+
+$$(F_{t} - F_{0}) * Contract\ Size = $0.02 * 5000 = $100$$
+
+And since you have 3 contracts, your total profit is $300. 
+
+** Heating Oil
+
+The NYMEX Heating Oil contract (ticker HO) is for 42000 gallons (there are 42 gallons in a barrel of oil, and each NYMEX crude oil contract is for 1000 barrels).  Thus for every cent change in HO, you gain or lose $420.  Or equivalently, for every $0.0001 change in HO (the minimum price fluctuation) you gain or lose $4.20.
+
+*** Example:
+
+Say earlier today you sold 2 June 2020 HO contracts for $1.20 each.  At the close of today's trading June 2020 HO traded at a price of $1.230.
+
+In this case you lost $126.  
+
+* Margin and Marking to Market
+
+Gains and losses are realized daily.
+
+
 
 
 * Understanding Futures Prices
@@ -160,4 +223,27 @@ For convenience sake, we are inexact when we use the term `buy` or `sell` a futu
 #+RESULTS[72f2c88151f9658815d598b182e4c15e67ee3b0e]:
 [[file:oi.png]]
 
+* Contango and Backwardation
 
+Contango:  the futures prices are above the expected future spot price.
+Backwardation:  the futures prices are below the expected future spot price.
+
+* Contango, the Roll, and Commodity ETFs
+
+Right now (April 13, 2020) the crude oil market is in contago.  
+
+| Month      | 	Last | 	Change | Prior Settle | 	Open | 	High |   Low | Volume |
+|------------+--------------+----------------+--------------+--------------+--------------+-------+--------|
+| MAY   2020 |        22.73 |          +0.32 |        22.41 |        22.36 |        23.08 | 22.36 | 26,806 |
+| JUN   2020 |        29.73 |          +0.47 |        29.26 |        29.20 |        29.91 | 29.20 | 12,267 |
+| JUL 2020   |        33.45 |          +0.49 |        32.96 |        32.93 |        33.57 | 32.93 | 4,802  |
+| AUG 2020   |        34.95 |          +0.53 |        34.42 |        34.53 |        35.05 | 34.50 | 1,852  |
+| SEP 2020   |        35.67 |          +0.61 |        35.06 |        35.32 |        35.71 | 35.24 | 672    |
+| OCT 2020   |        35.90 |          +0.37 |        35.53 |        35.80 |        35.90 | 35.80 | 219    |
+| NOV 2020   |        36.61 |          +0.67 |        35.94 |        36.22 |        36.61 | 36.22 | 227    |
+|------------+--------------+----------------+--------------+--------------+--------------+-------+--------|
+
+
+Every month ETFs such as USO have to sell the front-month contract, and buy the following month.  They publish these roll dates here: 
+
+When the futures market is in contango, these ETFs lose money every month when they roll, and thus destroy value over time.
