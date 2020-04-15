@@ -169,9 +169,26 @@ Say earlier today you sold 2 June 2020 HO contracts for $1.20 each.  At the clos
 
 In this case you lost $126.  
 
-* Margin and Marking to Market
+* Marking to Market and Margin
 
-Gains and losses are realized daily.
+Contracts are =marked-to-market= daily, and gains and losses are realized.
+
+Maintenance and initial margin are [[https://www.cmegroup.com/clearing/margins/outright-vol-scans.html#sortField=exchange&sortAsc=true&pageNumber=1][stated in dollars]] (as opposed to percent).  When you open a position you must have sufficient cash to cover the initial margin (initial margin may be the same as maintenance margin). 
+
+At the end of each day you have to add cash if your margin amount is below the maintenance margin.  If you gained on your contract the case is added to your margin.
+
+** Example: 
+
+Consider the above heating oil position above, where you sold 2 June 2020 HO contracts for $1.20 each, and the close of trading the contract traded at a price of $1.230.  In this case you lost $126.
+
+Say the initial margin was $10,000, and the maintenance margin is $8,000.  
+
+
+
+
+
+
+
 
 
 
