@@ -1,7 +1,16 @@
 #+title: An Introduction to Futures
 #+author: Matt Brigida, Ph.D.
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="mystyle.css" />
 
+#+BEGIN_EXPORT html
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+#+END_EXPORT
+
+#+BEGIN_EXPORT html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+#+END_EXPORT
 
 * Futures and Forwards
 
@@ -33,7 +42,7 @@ Broadly speaking, there are two types of traders in futures markets, hedgers and
 
 *** Buy Natural Gas Futures
 
-Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  So you are naturall /short/ natural gas, and should /buy/ futures to hedge.  
+Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  So you are naturally /short/ natural gas, and should /buy/ futures to hedge.
 
 *** Sell Natural Gas Futures
 
@@ -151,6 +160,7 @@ The soybeans (ZS) contract size is 5000 bushels. So for every cent change in the
 
 *** Example:
 
+
 Say earlier today you bought 3 July 2020 ZS contracts for 325 cents each.  At the close of today's trading July 2020 ZS traded at a price of 327 cents.
 
 Your profit per contract is:
@@ -158,6 +168,40 @@ Your profit per contract is:
 $$(F_{t} - F_{0}) * Contract\ Size = $0.02 * 5000 = $100$$
 
 And since you have 3 contracts, your total profit is $300. 
+
+
+#+BEGIN_EXPORT html
+<div id="zs_profit_example">
+<center>
+<hr>
+Input a new ZS price (in cents per bushel):<br>
+  <input type="number" name="number1" v-model="number1">
+  <p>Your profit is: <b>${{ result }}</b></p>
+<hr>
+</center>
+</div>
+
+
+
+<script>
+new Vue({
+  el: '#zs_profit_example',
+  data: {
+    number1: 325,
+  },
+  computed: {
+  	result() {
+    	return (this.number1 - 325.0) * 50 * 3;
+    }
+  }
+});
+</script>
+#+END_EXPORT
+
+
+
+
+
 
 ** Heating Oil
 
@@ -182,6 +226,10 @@ At the end of each day you have to add cash if your margin amount is below the m
 Consider the above heating oil position above, where you sold 2 June 2020 HO contracts for $1.20 each, and the close of trading the contract traded at a price of $1.230.  In this case you lost $126.
 
 Say the initial margin was $10,000, and the maintenance margin is $8,000.  
+
+#+begin_src python :exports both :results both
+
+#+end_src
 
 
 
@@ -242,8 +290,15 @@ For convenience sake, we are inexact when we use the term `buy` or `sell` a futu
 
 * Contango and Backwardation
 
-Contango:  the futures prices are above the expected future spot price.
-Backwardation:  the futures prices are below the expected future spot price.
+** Definitions
+
+- Contango:  $F_0 > E(P_T)$ the futures prices are above the expected future spot price.
+- Backwardation:  $F_0 < E(P_T)$ the futures prices are below the expected future spot price.
+
+** Explanations
+
+- Keynes/Hicks: hedging demand
+- Modern Portfolio Theory
 
 * Contango, the Roll, and Commodity ETFs
 
@@ -264,3 +319,40 @@ Right now (April 13, 2020) the crude oil market is in contago.
 Every month ETFs such as USO have to sell the front-month contract, and buy the following month.  They publish these roll dates here: 
 
 When the futures market is in contango, these ETFs lose money every month when they roll, and thus destroy value over time.
+
+#+begin_export html
+<script>
+import { Line } from 'vue-chartjs'
+
+Vue.component('line-chart', {
+  extends: VueChartJs.Line,
+  mounted () {
+    this.renderChart({
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'Data One',
+          backgroundColor: '#f87979',
+          data: [40, 39, 10, 40, 39, 80, 40]
+        }
+      ]
+    }, {responsive: true, maintainAspectRatio: false})
+  }
+  
+})
+
+var vm = new Vue({
+  el: '#contango',
+  data: {
+    message: 'hello'
+  }
+})
+</script>
+#+end_export
+
+
+#+BEGIN_EXPORT html
+<div id="contango">
+<line-chart></line-chart>
+</div>
+#+END_EXPORT
