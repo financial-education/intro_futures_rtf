@@ -3,196 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-19 Mon 06:40 -->
+<!-- 2023-11-15 Wed 10:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>An Introduction to Futures</title>
 <meta name="author" content="Matt Brigida, Ph.D." />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: auto;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline; margin-top: 14px;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -200,122 +16,115 @@
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
 <link rel="stylesheet" type="text/css" href="mystyle.css" />
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
 
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">An Introduction to Futures</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc23e5c6">1. Futures and Forwards</a>
+<li><a href="#orgda80190">1. Futures and Forwards</a>
 <ul>
-<li><a href="#org5295358">1.1. Spot Prices</a></li>
+<li><a href="#orga374173">1.1. Spot Prices</a></li>
 </ul>
 </li>
-<li><a href="#org5ad5c82">2. Who Trades Futures?</a></li>
-<li><a href="#org5b15fcb">3. Hedgers</a>
+<li><a href="#org841d663">2. Who Trades Futures?</a></li>
+<li><a href="#org7abe0c7">3. Hedgers</a>
 <ul>
-<li><a href="#orgb027f2f">3.1. Example: Natural Gas Futures</a>
+<li><a href="#org1c3a703">3.1. Example: Natural Gas Futures</a>
 <ul>
-<li><a href="#orgd8a7e6b">3.1.1. Buy Natural Gas Futures</a></li>
-<li><a href="#org93ca752">3.1.2. Sell Natural Gas Futures</a></li>
+<li><a href="#org21c5672">3.1.1. Buy Natural Gas Futures</a></li>
+<li><a href="#org17c279a">3.1.2. Sell Natural Gas Futures</a></li>
 </ul>
 </li>
-<li><a href="#org7e4ff71">3.2. Example: Wheat Futures</a>
+<li><a href="#org88e9cdc">3.2. Example: Wheat Futures</a>
 <ul>
-<li><a href="#org439b758">3.2.1. Buy Wheat Futures</a></li>
-<li><a href="#org98e1c91">3.2.2. Sell Wheat Futures</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org4428358">4. The Role of Speculators</a></li>
-<li><a href="#org5564118">5. CFTC COT Reports</a>
-<ul>
-<li><a href="#org129371e">5.1. Quandl</a>
-<ul>
-<li><a href="#orgff50e26">5.1.1. TRANSCO ZONE 6 MONTHLY INDEX (IFED) - Futures and Options - Number of Traders</a></li>
-</ul>
-</li>
-<li><a href="#org9b8b0ce">5.2. CME COT Visualizations</a></li>
-</ul>
-</li>
-<li><a href="#org0e631d0">6. Major Futures Markets</a></li>
-<li><a href="#org9bc34bb">7. Futures Quotes</a></li>
-<li><a href="#org0f25490">8. Profit and Loss on Futures</a>
-<ul>
-<li><a href="#org1e85e19">8.1. Soybeans</a>
-<ul>
-<li><a href="#orge85773d">8.1.1. Example:</a></li>
-</ul>
-</li>
-<li><a href="#org979f3fc">8.2. Heating Oil</a>
-<ul>
-<li><a href="#org884e35e">8.2.1. Example:</a></li>
+<li><a href="#org419d77d">3.2.1. Buy Wheat Futures</a></li>
+<li><a href="#orgd846fb3">3.2.2. Sell Wheat Futures</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd94cf37">9. Marking to Market and Margin</a>
+<li><a href="#org20100f4">4. The Role of Speculators</a></li>
+<li><a href="#org4706671">5. CFTC COT Reports</a>
 <ul>
-<li><a href="#orgaeedcff">9.1. Example:</a></li>
+<li><a href="#org93e3e70">5.1. Quandl</a>
+<ul>
+<li><a href="#org590cf42">5.1.1. TRANSCO ZONE 6 MONTHLY INDEX (IFED) - Futures and Options - Number of Traders</a></li>
 </ul>
 </li>
-<li><a href="#org26fca9a">10. Understanding Futures Prices</a></li>
-<li><a href="#org6cd429a">11. Futures Prices by Delivery</a></li>
-<li><a href="#orgc6434ea">12. Open Interest</a></li>
-<li><a href="#orga4e2d21">13. Contango and Backwardation</a>
-<ul>
-<li><a href="#org627c338">13.1. Definitions</a></li>
-<li><a href="#org09db7bc">13.2. Explanations</a></li>
+<li><a href="#org660837b">5.2. CME COT Visualizations</a></li>
 </ul>
 </li>
-<li><a href="#org8829e9b">14. Contango, the Roll, and Commodity ETFs</a></li>
+<li><a href="#org2240872">6. Major Futures Markets</a></li>
+<li><a href="#org86d2307">7. Futures Quotes</a></li>
+<li><a href="#orge36abf7">8. Profit and Loss on Futures</a>
+<ul>
+<li><a href="#orge786918">8.1. Soybeans</a>
+<ul>
+<li><a href="#orgb5ea7da">8.1.1. Example:</a></li>
+</ul>
+</li>
+<li><a href="#orgd13d8e9">8.2. Heating Oil</a>
+<ul>
+<li><a href="#orgf5d8b86">8.2.1. Example:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orga40d619">9. Marking to Market and Margin</a>
+<ul>
+<li><a href="#org1a84bbe">9.1. Example:</a></li>
+</ul>
+</li>
+<li><a href="#org55ad855">10. Understanding Futures Prices</a></li>
+<li><a href="#orgc706290">11. Futures Prices by Delivery</a></li>
+<li><a href="#org0d6f9ae">12. Open Interest</a></li>
+<li><a href="#org9b7fc47">13. Contango and Backwardation</a>
+<ul>
+<li><a href="#org7305680">13.1. Definitions</a></li>
+<li><a href="#orgad42b38">13.2. Explanations</a></li>
+</ul>
+</li>
+<li><a href="#org46d193b">14. Contango, the Roll, and Commodity ETFs</a></li>
+<li><a href="#org7d0ca50">15. Some Interesting Contracts</a>
+<ul>
+<li><a href="#orgc2fc303">15.1. Lumber April 2021</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -324,20 +133,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 
-<div id="outline-container-orgc23e5c6" class="outline-2">
-<h2 id="orgc23e5c6"><span class="section-number-2">1</span> Futures and Forwards</h2>
+<div id="outline-container-orgda80190" class="outline-2">
+<h2 id="orgda80190"><span class="section-number-2">1.</span> Futures and Forwards</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Futures and forwards are used by firms in the same way in order to manage risk.  Futures and forwards simply differ in the manner in which they are traded, and the standardization of the contract.
 </p>
 
 <ul class="org-ul">
-<li>In this presentation we&rsquo;ll refer to <b>futures</b>, but much of the content can be generalized to forwards also.</li>
+<li>In this presentation we'll refer to <b>futures</b>, but much of the content can be generalized to forwards also.</li>
 </ul>
 </div>
 
-<div id="outline-container-org5295358" class="outline-3">
-<h3 id="org5295358"><span class="section-number-3">1.1</span> Spot Prices</h3>
+<div id="outline-container-orga374173" class="outline-3">
+<h3 id="orga374173"><span class="section-number-3">1.1.</span> Spot Prices</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 The spot price is the price for immediate delivery of the underlying.  Usually, immediate means withing two days.
@@ -353,8 +162,8 @@ As the futures contract approaches expiration, the futures price approaches the 
 </div>
 
 
-<div id="outline-container-org5ad5c82" class="outline-2">
-<h2 id="org5ad5c82"><span class="section-number-2">2</span> Who Trades Futures?</h2>
+<div id="outline-container-org841d663" class="outline-2">
+<h2 id="org841d663"><span class="section-number-2">2.</span> Who Trades Futures?</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Broadly speaking, there are two types of traders in futures markets, hedgers and speculators.
@@ -369,16 +178,16 @@ Broadly speaking, there are two types of traders in futures markets, hedgers and
 </div>
 
 
-<div id="outline-container-org5b15fcb" class="outline-2">
-<h2 id="org5b15fcb"><span class="section-number-2">3</span> Hedgers</h2>
+<div id="outline-container-org7abe0c7" class="outline-2">
+<h2 id="org7abe0c7"><span class="section-number-2">3.</span> Hedgers</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgb027f2f" class="outline-3">
-<h3 id="orgb027f2f"><span class="section-number-3">3.1</span> Example: Natural Gas Futures</h3>
+<div id="outline-container-org1c3a703" class="outline-3">
+<h3 id="org1c3a703"><span class="section-number-3">3.1.</span> Example: Natural Gas Futures</h3>
 <div class="outline-text-3" id="text-3-1">
 </div>
-<div id="outline-container-orgd8a7e6b" class="outline-4">
-<h4 id="orgd8a7e6b"><span class="section-number-4">3.1.1</span> Buy Natural Gas Futures</h4>
+<div id="outline-container-org21c5672" class="outline-4">
+<h4 id="org21c5672"><span class="section-number-4">3.1.1.</span> Buy Natural Gas Futures</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 Say you are a deregulated utility which operates a natural-gas fired power plant.  Your business requires you to buy natural gas and sell electricity.  So you are naturally <i>short</i> natural gas, and should <i>buy</i> futures to hedge.
@@ -386,8 +195,8 @@ Say you are a deregulated utility which operates a natural-gas fired power plant
 </div>
 </div>
 
-<div id="outline-container-org93ca752" class="outline-4">
-<h4 id="org93ca752"><span class="section-number-4">3.1.2</span> Sell Natural Gas Futures</h4>
+<div id="outline-container-org17c279a" class="outline-4">
+<h4 id="org17c279a"><span class="section-number-4">3.1.2.</span> Sell Natural Gas Futures</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Say you are an upstream Oil and Gas E&amp;P (Exploration and Production) firm.  You produce natural gas, and so are naturally <i>long</i> the price.  To hedge you should <i>sell</i> futures.
@@ -396,12 +205,12 @@ Say you are an upstream Oil and Gas E&amp;P (Exploration and Production) firm.  
 </div>
 </div>
 
-<div id="outline-container-org7e4ff71" class="outline-3">
-<h3 id="org7e4ff71"><span class="section-number-3">3.2</span> Example: Wheat Futures</h3>
+<div id="outline-container-org88e9cdc" class="outline-3">
+<h3 id="org88e9cdc"><span class="section-number-3">3.2.</span> Example: Wheat Futures</h3>
 <div class="outline-text-3" id="text-3-2">
 </div>
-<div id="outline-container-org439b758" class="outline-4">
-<h4 id="org439b758"><span class="section-number-4">3.2.1</span> Buy Wheat Futures</h4>
+<div id="outline-container-org419d77d" class="outline-4">
+<h4 id="org419d77d"><span class="section-number-4">3.2.1.</span> Buy Wheat Futures</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 Say you make cereal made from wheat.  Your business is naturally short wheat, and so you buy wheat futures to hedge.
@@ -409,11 +218,11 @@ Say you make cereal made from wheat.  Your business is naturally short wheat, an
 </div>
 </div>
 
-<div id="outline-container-org98e1c91" class="outline-4">
-<h4 id="org98e1c91"><span class="section-number-4">3.2.2</span> Sell Wheat Futures</h4>
+<div id="outline-container-orgd846fb3" class="outline-4">
+<h4 id="orgd846fb3"><span class="section-number-4">3.2.2.</span> Sell Wheat Futures</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
-A farmer&rsquo;s business is long wheat, and therefore the farmer sells wheat futures to hedge.  This ensures sufficient future income to cover present costs.
+A farmer's business is long wheat, and therefore the farmer sells wheat futures to hedge.  This ensures sufficient future income to cover present costs.
 </p>
 </div>
 </div>
@@ -421,8 +230,8 @@ A farmer&rsquo;s business is long wheat, and therefore the farmer sells wheat fu
 </div>
 
 
-<div id="outline-container-org4428358" class="outline-2">
-<h2 id="org4428358"><span class="section-number-2">4</span> The Role of Speculators</h2>
+<div id="outline-container-org20100f4" class="outline-2">
+<h2 id="org20100f4"><span class="section-number-2">4.</span> The Role of Speculators</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Speculators play an important role by taking the other side of order imbalances between hedgers. Without speculators, hedgers would have to wait for other hedgers to trade (causing the market maker to widen bid-ask spreads).
@@ -440,8 +249,8 @@ Futures markets exist to allow hedging, and not for speculation.  That said, wit
 </div>
 </div>
 
-<div id="outline-container-org5564118" class="outline-2">
-<h2 id="org5564118"><span class="section-number-2">5</span> CFTC COT Reports</h2>
+<div id="outline-container-org4706671" class="outline-2">
+<h2 id="org4706671"><span class="section-number-2">5.</span> CFTC COT Reports</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Types of traders and their aggregate positions are summarized in the [CFTC Commitment of Traders Report](<a href="http://www.cftc.gov/Marketreports/CommitmentsofTraders/index.htm">http://www.cftc.gov/Marketreports/CommitmentsofTraders/index.htm</a>).
@@ -452,11 +261,11 @@ You can automatically import this data for analysis using:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R"><span style="color: #a9a1e1;">library</span>(readr)
-data <span style="color: #a9a1e1;">&lt;-</span> read_csv(<span style="color: #98be65;">"https://www.cftc.gov/dea/newcot/c_disagg.txt"</span>, col_names = <span style="color: #ECBE7B;">FALSE</span>)
+<pre class="src src-R"><span style="color: #268bd2; font-weight: bold;">library</span>(readr)
+data <span style="color: #268bd2; font-weight: bold;">&lt;-</span> read_csv(<span style="color: #2aa198;">"https://www.cftc.gov/dea/newcot/c_disagg.txt"</span>, col_names = <span style="color: #b58900;">FALSE</span>)
 print(dim(data))
-<span style="color: #5B6268;">## </span><span style="color: #5B6268;">just show first two rows, and first 5 columns</span>
-data[<span style="color: #da8548; font-weight: bold;">1</span>:<span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">1</span>:<span style="color: #da8548; font-weight: bold;">5</span>]
+<span style="color: #586e75;">## </span><span style="color: #586e75;">just show first two rows, and first 5 columns</span>
+data[1:2, 1:5]
 </pre>
 </div>
 
@@ -507,23 +316,23 @@ Although we have to add the data headings, which it looks like <a href="https://
 </p>
 </div>
 
-<div id="outline-container-org129371e" class="outline-3">
-<h3 id="org129371e"><span class="section-number-3">5.1</span> Quandl</h3>
+<div id="outline-container-org93e3e70" class="outline-3">
+<h3 id="org93e3e70"><span class="section-number-3">5.1.</span> Quandl</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 We can also pull this data via Quandl:
 </p>
 </div>
-<div id="outline-container-orgff50e26" class="outline-4">
-<h4 id="orgff50e26"><span class="section-number-4">5.1.1</span> TRANSCO ZONE 6 MONTHLY INDEX (IFED) - Futures and Options - Number of Traders</h4>
+<div id="outline-container-org590cf42" class="outline-4">
+<h4 id="org590cf42"><span class="section-number-4">5.1.1.</span> TRANSCO ZONE 6 MONTHLY INDEX (IFED) - Futures and Options - Number of Traders</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <div class="org-src-container">
-<pre class="src src-R"><span style="color: #a9a1e1;">library</span>(Quandl)
-api_key <span style="color: #a9a1e1;">&lt;-</span> read.table(<span style="color: #98be65;">"~/quandl_api_key"</span>)
-api_key <span style="color: #a9a1e1;">&lt;-</span> as.character(api_key$V1)
+<pre class="src src-R"><span style="color: #268bd2; font-weight: bold;">library</span>(Quandl)
+api_key <span style="color: #268bd2; font-weight: bold;">&lt;-</span> read.table(<span style="color: #2aa198;">"~/quandl_api_key"</span>)
+api_key <span style="color: #268bd2; font-weight: bold;">&lt;-</span> as.character(api_key$V1)
 Quandl.api_key(api_key)
 
-cot <span style="color: #a9a1e1;">&lt;-</span> Quandl(<span style="color: #98be65;">"CFTC/0233CV_FO_L_ALL_NT"</span>)
+cot <span style="color: #268bd2; font-weight: bold;">&lt;-</span> Quandl(<span style="color: #2aa198;">"CFTC/0233CV_FO_L_ALL_NT"</span>)
 head(cot)
 </pre>
 </div>
@@ -641,8 +450,8 @@ head(cot)
 </div>
 </div>
 
-<div id="outline-container-org9b8b0ce" class="outline-3">
-<h3 id="org9b8b0ce"><span class="section-number-3">5.2</span> CME COT Visualizations</h3>
+<div id="outline-container-org660837b" class="outline-3">
+<h3 id="org660837b"><span class="section-number-3">5.2.</span> CME COT Visualizations</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 <a href="https://www.cmegroup.com/tools-information/quikstrike/commitment-of-traders-agricultural.html">See this plot here.</a>
@@ -652,8 +461,8 @@ head(cot)
 </div>
 
 
-<div id="outline-container-org0e631d0" class="outline-2">
-<h2 id="org0e631d0"><span class="section-number-2">6</span> Major Futures Markets</h2>
+<div id="outline-container-org2240872" class="outline-2">
+<h2 id="org2240872"><span class="section-number-2">6.</span> Major Futures Markets</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li><a href="http://www.cmegroup.com/">CME Group</a>: Comprises the Chicago Mercantile Exchange, Chicago Board of Trade, New York Mercantile Exchange, COMEX, and the CME Europe.</li>
@@ -663,8 +472,8 @@ head(cot)
 </div>
 </div>
 
-<div id="outline-container-org9bc34bb" class="outline-2">
-<h2 id="org9bc34bb"><span class="section-number-2">7</span> Futures Quotes</h2>
+<div id="outline-container-org86d2307" class="outline-2">
+<h2 id="org86d2307"><span class="section-number-2">7.</span> Futures Quotes</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 <a href="https://www.cmegroup.com/trading/agricultural/grain-and-oilseed/soybean_contract_specifications.html">CME Soybeans Contract (ZS)</a>
@@ -767,27 +576,27 @@ head(cot)
 </div>
 </div>
 
-<div id="outline-container-org0f25490" class="outline-2">
-<h2 id="org0f25490"><span class="section-number-2">8</span> Profit and Loss on Futures</h2>
+<div id="outline-container-orge36abf7" class="outline-2">
+<h2 id="orge36abf7"><span class="section-number-2">8.</span> Profit and Loss on Futures</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 The contract size will give you the profit/loss for a 1 cent movement in the price.  
 </p>
 </div>
 
-<div id="outline-container-org1e85e19" class="outline-3">
-<h3 id="org1e85e19"><span class="section-number-3">8.1</span> Soybeans</h3>
+<div id="outline-container-orge786918" class="outline-3">
+<h3 id="orge786918"><span class="section-number-3">8.1.</span> Soybeans</h3>
 <div class="outline-text-3" id="text-8-1">
 <p>
 The soybeans (ZS) contract size is 5000 bushels. So for every cent change in the soybeans contract price, you make or lose $50 per contract.
 </p>
 </div>
 
-<div id="outline-container-orge85773d" class="outline-4">
-<h4 id="orge85773d"><span class="section-number-4">8.1.1</span> Example:</h4>
+<div id="outline-container-orgb5ea7da" class="outline-4">
+<h4 id="orgb5ea7da"><span class="section-number-4">8.1.1.</span> Example:</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <p>
-Say earlier today you bought 3 July 2020 ZS contracts for 325 cents each.  At the close of today&rsquo;s trading July 2020 ZS traded at a price of 327 cents.
+Say earlier today you bought 3 July 2020 ZS contracts for 325 cents each.  At the close of today's trading July 2020 ZS traded at a price of 327 cents.
 </p>
 
 <p>
@@ -837,19 +646,19 @@ new Vue({
 
 
 
-<div id="outline-container-org979f3fc" class="outline-3">
-<h3 id="org979f3fc"><span class="section-number-3">8.2</span> Heating Oil</h3>
+<div id="outline-container-orgd13d8e9" class="outline-3">
+<h3 id="orgd13d8e9"><span class="section-number-3">8.2.</span> Heating Oil</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 The NYMEX Heating Oil contract (ticker HO) is for 42000 gallons (there are 42 gallons in a barrel of oil, and each NYMEX crude oil contract is for 1000 barrels).  Thus for every cent change in HO, you gain or lose $420.  Or equivalently, for every $0.0001 change in HO (the minimum price fluctuation) you gain or lose $4.20.
 </p>
 </div>
 
-<div id="outline-container-org884e35e" class="outline-4">
-<h4 id="org884e35e"><span class="section-number-4">8.2.1</span> Example:</h4>
+<div id="outline-container-orgf5d8b86" class="outline-4">
+<h4 id="orgf5d8b86"><span class="section-number-4">8.2.1.</span> Example:</h4>
 <div class="outline-text-4" id="text-8-2-1">
 <p>
-Say earlier today you sold 2 June 2020 HO contracts for $1.20 each.  At the close of today&rsquo;s trading June 2020 HO traded at a price of $1.230.
+Say earlier today you sold 2 June 2020 HO contracts for $1.20 each.  At the close of today's trading June 2020 HO traded at a price of $1.230.
 </p>
 
 <p>
@@ -860,8 +669,8 @@ In this case you lost $126.
 </div>
 </div>
 
-<div id="outline-container-orgd94cf37" class="outline-2">
-<h2 id="orgd94cf37"><span class="section-number-2">9</span> Marking to Market and Margin</h2>
+<div id="outline-container-orga40d619" class="outline-2">
+<h2 id="orga40d619"><span class="section-number-2">9.</span> Marking to Market and Margin</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 Contracts are <code>marked-to-market</code> daily, and gains and losses are realized.
@@ -876,8 +685,8 @@ At the end of each day you have to add cash if your margin amount is below the m
 </p>
 </div>
 
-<div id="outline-container-orgaeedcff" class="outline-3">
-<h3 id="orgaeedcff"><span class="section-number-3">9.1</span> Example:</h3>
+<div id="outline-container-org1a84bbe" class="outline-3">
+<h3 id="org1a84bbe"><span class="section-number-3">9.1.</span> Example:</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 Consider the above heating oil position above, where you sold 2 June 2020 HO contracts for $1.20 each, and the close of trading the contract traded at a price of $1.230.  In this case you lost $126.
@@ -898,15 +707,15 @@ Say the initial margin was $10,000, and the maintenance margin is $8,000.
 
 
 
-<div id="outline-container-org26fca9a" class="outline-2">
-<h2 id="org26fca9a"><span class="section-number-2">10</span> Understanding Futures Prices</h2>
+<div id="outline-container-org55ad855" class="outline-2">
+<h2 id="org55ad855"><span class="section-number-2">10.</span> Understanding Futures Prices</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 All futures prices are affected by interest rates.  Beyond that, futures prices are driven by storage costs and convenience yields.
 </p>
 
 <p>
-<a href="https://www.eia.gov/naturalgas/storage/dashboard/">We can take a look at the EIA&rsquo;s Natural Gas Storage Dashboard to start to understand futures pricing.</a>
+<a href="https://www.eia.gov/naturalgas/storage/dashboard/">We can take a look at the EIA's Natural Gas Storage Dashboard to start to understand futures pricing.</a>
 </p>
 
 <iframe src="https://www.eia.gov/naturalgas/storage/dashboard/" allowfullscreen="true" height=800px width="100%"></iframe>
@@ -915,24 +724,24 @@ All futures prices are affected by interest rates.  Beyond that, futures prices 
 
 
 
-<div id="outline-container-org6cd429a" class="outline-2">
-<h2 id="org6cd429a"><span class="section-number-2">11</span> Futures Prices by Delivery</h2>
+<div id="outline-container-orgc706290" class="outline-2">
+<h2 id="orgc706290"><span class="section-number-2">11.</span> Futures Prices by Delivery</h2>
 </div>
 
 
 
 
-<div id="outline-container-orgc6434ea" class="outline-2">
-<h2 id="orgc6434ea"><span class="section-number-2">12</span> Open Interest</h2>
+<div id="outline-container-org0d6f9ae" class="outline-2">
+<h2 id="org0d6f9ae"><span class="section-number-2">12.</span> Open Interest</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 For convenience sake, we are inexact when we use the term `buy` or `sell` a futures contract.  What we mean when we say `buy` (or `sell`) is we enter into contract today to buy (or sell) the underlying at some set point in the future, for the futures price.  So when we buy or sell we <b>create</b> a contract, and if we close a position we <b>remove</b> a contract.  The number of contracts that are in existence at any point is call <b>open interest</b>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">  <span style="color: #5B6268;">## </span><span style="color: #5B6268;">Dubai crude oil traded on the Tokyo commodities exchange</span>
-  dc <span style="color: #a9a1e1;">&lt;-</span> Quandl(<span style="color: #98be65;">"TOCOM/33X2018"</span>)
-  head(dc)
+<pre class="src src-R"><span style="color: #586e75;">## </span><span style="color: #586e75;">Dubai crude oil traded on the Tokyo commodities exchange</span>
+dc <span style="color: #268bd2; font-weight: bold;">&lt;-</span> Quandl(<span style="color: #2aa198;">"TOCOM/33X2018"</span>)
+head(dc)
 </pre>
 </div>
 
@@ -940,36 +749,125 @@ For convenience sake, we are inexact when we use the term `buy` or `sell` a futu
 
 
 <colgroup>
-<col  class="org-left" />
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">x</th>
+<th scope="col" class="org-right">Date</th>
+<th scope="col" class="org-right">Open</th>
+<th scope="col" class="org-right">High</th>
+<th scope="col" class="org-right">Low</th>
+<th scope="col" class="org-right">Close</th>
+<th scope="col" class="org-right">Settle</th>
+<th scope="col" class="org-right">Volume</th>
+<th scope="col" class="org-right">Open Interest</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left">org<sub>babel</sub><sub>R</sub><sub>eoe</sub></td>
+<td class="org-right">2018-11-30</td>
+<td class="org-right">46830</td>
+<td class="org-right">46830</td>
+<td class="org-right">46690</td>
+<td class="org-right">46700</td>
+<td class="org-right">46700</td>
+<td class="org-right">8</td>
+<td class="org-right">2471</td>
+</tr>
+
+<tr>
+<td class="org-right">2018-11-29</td>
+<td class="org-right">47230</td>
+<td class="org-right">47230</td>
+<td class="org-right">46690</td>
+<td class="org-right">46690</td>
+<td class="org-right">46690</td>
+<td class="org-right">21</td>
+<td class="org-right">2476</td>
+</tr>
+
+<tr>
+<td class="org-right">2018-11-28</td>
+<td class="org-right">46720</td>
+<td class="org-right">46970</td>
+<td class="org-right">46710</td>
+<td class="org-right">46790</td>
+<td class="org-right">46790</td>
+<td class="org-right">13</td>
+<td class="org-right">2483</td>
+</tr>
+
+<tr>
+<td class="org-right">2018-11-27</td>
+<td class="org-right">46880</td>
+<td class="org-right">46890</td>
+<td class="org-right">46750</td>
+<td class="org-right">46750</td>
+<td class="org-right">46750</td>
+<td class="org-right">16</td>
+<td class="org-right">2485</td>
+</tr>
+
+<tr>
+<td class="org-right">2018-11-26</td>
+<td class="org-right">47390</td>
+<td class="org-right">47390</td>
+<td class="org-right">46460</td>
+<td class="org-right">46730</td>
+<td class="org-right">46730</td>
+<td class="org-right">12</td>
+<td class="org-right">2489</td>
+</tr>
+
+<tr>
+<td class="org-right">2018-11-22</td>
+<td class="org-right">47300</td>
+<td class="org-right">47350</td>
+<td class="org-right">47280</td>
+<td class="org-right">47350</td>
+<td class="org-right">47350</td>
+<td class="org-right">17</td>
+<td class="org-right">2492</td>
 </tr>
 </tbody>
 </table>
 
 
 <div class="org-src-container">
-<pre class="src src-R">  <span style="color: #a9a1e1;">library</span>(xts)
-  oi <span style="color: #a9a1e1;">&lt;-</span> as.xts(dc$<span style="color: #bbc2cf; background-color: #21242b;">`Open Interest`</span>, order.by = as.Date(dc$Date))
-  plot(oi, main = <span style="color: #98be65;">"Open Interest"</span>)
+<pre class="src src-R"><span style="color: #268bd2; font-weight: bold;">library</span>(xts)
+oi <span style="color: #268bd2; font-weight: bold;">&lt;-</span> as.xts(dc$`Open Interest`, order.by = as.Date(dc$Date))
+plot(oi, main = <span style="color: #2aa198;">"Open Interest"</span>)
 </pre>
+</div>
+
+
+<div id="orgdf03395" class="figure">
+<p><img src="oi.png" alt="oi.png" />
+</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga4e2d21" class="outline-2">
-<h2 id="orga4e2d21"><span class="section-number-2">13</span> Contango and Backwardation</h2>
+<div id="outline-container-org9b7fc47" class="outline-2">
+<h2 id="org9b7fc47"><span class="section-number-2">13.</span> Contango and Backwardation</h2>
 <div class="outline-text-2" id="text-13">
 </div>
-<div id="outline-container-org627c338" class="outline-3">
-<h3 id="org627c338"><span class="section-number-3">13.1</span> Definitions</h3>
+<div id="outline-container-org7305680" class="outline-3">
+<h3 id="org7305680"><span class="section-number-3">13.1.</span> Definitions</h3>
 <div class="outline-text-3" id="text-13-1">
 <ul class="org-ul">
 <li>Contango:  \(F_0 > E(P_T)\) the futures prices are above the expected future spot price.</li>
@@ -978,8 +876,8 @@ For convenience sake, we are inexact when we use the term `buy` or `sell` a futu
 </div>
 </div>
 
-<div id="outline-container-org09db7bc" class="outline-3">
-<h3 id="org09db7bc"><span class="section-number-3">13.2</span> Explanations</h3>
+<div id="outline-container-orgad42b38" class="outline-3">
+<h3 id="orgad42b38"><span class="section-number-3">13.2.</span> Explanations</h3>
 <div class="outline-text-3" id="text-13-2">
 <ul class="org-ul">
 <li>Keynes/Hicks: hedging demand</li>
@@ -989,8 +887,8 @@ For convenience sake, we are inexact when we use the term `buy` or `sell` a futu
 </div>
 </div>
 
-<div id="outline-container-org8829e9b" class="outline-2">
-<h2 id="org8829e9b"><span class="section-number-2">14</span> Contango, the Roll, and Commodity ETFs</h2>
+<div id="outline-container-org46d193b" class="outline-2">
+<h2 id="org46d193b"><span class="section-number-2">14.</span> Contango, the Roll, and Commodity ETFs</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 Right now (April 13, 2020) the crude oil market is in contago.  
@@ -1151,10 +1049,26 @@ var vm = new Vue({
 </div>
 </div>
 </div>
+
+
+<div id="outline-container-org7d0ca50" class="outline-2">
+<h2 id="org7d0ca50"><span class="section-number-2">15.</span> Some Interesting Contracts</h2>
+<div class="outline-text-2" id="text-15">
+</div>
+<div id="outline-container-orgc2fc303" class="outline-3">
+<h3 id="orgc2fc303"><span class="section-number-3">15.1.</span> Lumber April 2021</h3>
+<div class="outline-text-3" id="text-15-1">
+<p>
+<a href="https://www.nasdaq.com/market-activity/commodities/lbs/historical">Data from here.</a>
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida, Ph.D.</p>
-<p class="date">Created: 2021-04-19 Mon 06:40</p>
+<p class="date">Created: 2023-11-15 Wed 10:57</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

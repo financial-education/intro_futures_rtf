@@ -1,5 +1,6 @@
 #+title: An Introduction to Futures
 #+author: Matt Brigida, Ph.D.
+#+property: header-args :eval no
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="mystyle.css" />
 
@@ -351,3 +352,10 @@ var vm = new Vue({
 <line-chart></line-chart>
 </div>
 #+END_EXPORT
+
+
+* Some Interesting Contracts
+
+** Lumber April 2021
+
+[[https://www.nasdaq.com/market-activity/commodities/lbs/historical][Data from here.]]
